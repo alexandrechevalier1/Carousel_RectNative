@@ -23,13 +23,13 @@ Cloner le dépôt
   Clonez le dépôt avec la commande suivante :
 
 ```bash
-git clone https://github.com/nom-utilisateur/nom-du-projet.git
+git clone https://github.com/alexandrechevalier1/Carousel_RectNative.git
 ```
 
   Accédez au répertoire du projet :
 
 ```bash
-cd nom-du-projet
+cd MyCarouselApp
 ```
 
 Télécharger le ZIP
