@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, Image, FlatList, ScrollView, StyleSheet, Dimensions, Button } from 'react-native';
+import { View, Text, Image, ScrollView, FlatList, StyleSheet, Dimensions, TouchableOpacity, Alert } from 'react-native';
+
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -18,7 +19,7 @@ export default function App() {
   );
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView contentContainerStyle={styles.scrollContentContainer} style={styles.container}>
       <Text style={styles.title}>Semaine 1 : Synthèse</Text>
       <Text style={styles.subTitle}>Vos succès</Text>
 
@@ -37,16 +38,15 @@ export default function App() {
 
       {/* Row of Images */}
       <View style={styles.imageRow}>
-        <Image source={require('./assets/imageVDE1.png')} style={styles.rowImage} />
-        <Image source={require('./assets/imageVDE2.png')} style={styles.rowImage} />
-        <Image source={require('./assets/imageVDE3.png')} style={styles.rowImage} />
-        <Image source={require('./assets/imageVDE4.png')} style={styles.rowImage} />
+        <Image source={require('./assets/imageVDE1.png')} style={styles.squareImage} />
+        <Image source={require('./assets/imageVDE2.png')} style={styles.squareImage} />
       </View>
-
+      <Image source={require('./assets/imageVDE3.png')} style={styles.singleImage} />
+      <Image source={require('./assets/imageVDE4.png')} style={styles.singleImage} /> 
       <Text style={styles.subTitle}>Vos prise cette semaine</Text>
 
       {/* Single Image */}
-      <Image source={require('./assets/imagegraph.png')} style={styles.singleImage} />
+      <Image source={require('./assets/imagegraph.png')} style={styles.bannerImage} />
 
       {/* Text Section */}
       <Text style={styles.textSection}>
@@ -62,14 +62,14 @@ export default function App() {
       <Text style={styles.subTitle}>Vos prochaines étapes</Text>
 
       {/* Another Row of Images */}
-      <View style={styles.imageRow}>
-        <Image source={require('./assets/imageNS1.png')} style={styles.rowImage} />
-        <Image source={require('./assets/imageNS2.png')} style={styles.rowImage} />
-      </View>
+      <Image source={require('./assets/imageNS1.png')} style={styles.rowImage} />
+      <Image source={require('./assets/imageNS2.png')} style={styles.singleImage} />
 
       {/* Button */}
       <View style={styles.buttonContainer}>
-        <Button title="Click Me" onPress={() => alert('Button Pressed')} />
+        <TouchableOpacity style={styles.roundButton} onPress={() => alert('Button Pressed')}>
+          <Text style={styles.buttonText}>Passer au jour suivant</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
@@ -80,6 +80,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     paddingTop: 50,
+  },
+  scrollContentContainer: {
+    paddingBottom: 60, // Add padding at the bottom so the button isn't cut off
   },
   title: {
     fontSize: 24,
@@ -117,16 +120,30 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   rowImage: {
-    width: 80,
-    height: 80,
+    width: screenWidth * 0.9,
+    height: screenWidth * 0.9,
     resizeMode: 'contain',
+    alignSelf: 'center',
+    marginBottom: 5,
   },
   singleImage: {
     width: screenWidth - 40,
-    height: 200,
+    height: 150,
     resizeMode: 'contain',
     alignSelf: 'center',
-    marginBottom: 20,
+    marginBottom: 5,
+  },
+  squareImage: {
+    width: screenWidth * 0.4, // 40% of the screen width
+    height: screenWidth * 0.4, // Height equal to width to make it square
+    resizeMode: 'cover', // Ensures the image covers the square area
+  },
+  bannerImage: {
+    width: screenWidth * 0.87, // Full width of the screen
+    height: screenWidth * 0.6, // Adjust height based on your banner aspect ratio
+    resizeMode: 'cover', // Adjust based on your needs ('contain', 'stretch', etc.)
+    alignSelf: 'center',
+    marginBottom: 20, // Space between banners
   },
   textSection: {
     fontSize: 16,
@@ -137,7 +154,20 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     marginTop: 20,
-    marginBottom: 40,
     paddingHorizontal: 20,
+    alignItems: 'center', // Center the button horizontally
+  },
+  roundButton: {
+    width: '80%', // Button width (you can adjust this)
+    paddingVertical: 15, // Vertical padding for button height
+    backgroundColor: 'green', // Button color
+    borderRadius: 30, // Rounded corners
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16, // Text size
+    fontWeight: 'bold',
   },
 });
